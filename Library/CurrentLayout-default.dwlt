@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 6}
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -48,7 +48,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 492}
   m_MaxSize: {x: 14002, y: 14042}
   vertical: 0
-  controlID: 134
+  controlID: 16
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -150,7 +150,7 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 1117
-  m_MinSize: {x: 875, y: 300}
+  m_MinSize: {x: 875, y: 542}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &7
 MonoBehaviour:
@@ -219,7 +219,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 492}
   m_MaxSize: {x: 10001, y: 14042}
   vertical: 1
-  controlID: 38
+  controlID: 94
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -244,7 +244,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 221}
   m_MaxSize: {x: 8003, y: 4021}
   vertical: 0
-  controlID: 39
+  controlID: 95
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -326,7 +326,7 @@ MonoBehaviour:
     height: 400
   m_ViewDataDictionary: {fileID: 0}
   m_SearchFilter:
-    m_NameFilter: OVRRA
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -338,20 +338,20 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Oculus/VR/Prefabs
+    - Assets/Scenes
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Oculus/VR/Prefabs
+  - Assets/Scenes
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\shunm\Desktop\ElementBallGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 00000000123a0000143a000000ca9a3b
+    scrollPos: {x: 0, y: 104}
+    m_SelectedIDs: 2a3a0000
+    m_LastClickedID: 14890
+    m_ExpandedIDs: 00000000123a0000143a0000263a000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -406,7 +406,7 @@ MonoBehaviour:
   m_ListAreaState:
     m_SelectedInstanceIDs: 
     m_LastClickedInstanceID: 0
-    m_HadKeyboardFocusLastEvent: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: c623000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -504,7 +504,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 6cfbffff
+      m_ExpandedIDs: 7280ffff7480ffff3683ffff5283ffff5483ffff5883ffff8485ffff8885ffff8c85ffff9085ffff9485ffffe887ffff408affff428affffae8cffffb08cffff228fffff248fffffe891ffff0492ffff0692ffff0a92ffff3694ffff3a94ffff3e94ffff4294ffff6e96ffff9a96fffff898ffff2a99ffffec9bffff089cffff0a9cffff0e9cffff129cffff169cffff1a9cffff1e9cffff4a9effff9ea0ffff92a3ffff94a3ffffe2a5ffff14a6ffff82a8ffff84a8ffff6aabffff86abffff88abffff8cabffff90abffff94abffff98abffff9cabffffc8adffff1cb0ffff80b2ffff82b2ffff0ab5ffff0cb5fffffab7ffff2cb8fffff0baffff0cbbffff0ebbffff12bbffff16bbffff1abbffff1ebbffff22bbffff4ebdffffa2bfffff4ac3ffff4cc3ffffa0c6ffffa2c6ffff2ec9ffff30c9ffff6ac9ffff6accffff7accffff94ceffff58d1ffff74d1ffff76d1ffff7ad1ffff8ad3ffff8ed3ffff92d3ffff96d3ffff9ad3ffffeed5ffff4ad8ffffa4daffff84e1ffff3ee4ffff5ae4ffff5ce4ffff60e4ffff64e4ffff68e4ffff6ce4ffff70e4ffffaae6ffff0ee9ffffe6ebffff02ecffff04ecffff08ecffff0cecffff10ecffff14ecffff18ecffff52eeffffb6f0ffff86f3ffffa8f3ffffacf5ffffb0f5ffffb4f5ffffb8f5ffffbef5ffffc6f5ffff04f8ffff74faffff6cfbffffaa5400001655000050780000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -756,8 +756,8 @@ MonoBehaviour:
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 8
-    y: 717
-    width: 912
-    height: 394
+    x: 0
+    y: 719
+    width: 1366
+    height: 400
   m_ViewDataDictionary: {fileID: 0}
