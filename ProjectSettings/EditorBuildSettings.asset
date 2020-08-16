@@ -6,27 +6,27 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/UserSelectScene.unity
+    path: Assets/Resources/Scenes/UserSelectScene.unity
     guid: 93f9235ba52dd6446b0925f7008449f9
   - enabled: 1
-    path: Assets/Scenes/TitleScene.unity
+    path: Assets/Resources/Scenes/TitleScene.unity
     guid: b20a9b2dc3b3fb64599c1b0874eed8f3
   - enabled: 1
-    path: Assets/Scenes/SelectStageScene.unity
+    path: Assets/Resources/Scenes/SelectStageScene.unity
     guid: a6aaf389350e8124ba3e35a7f33ffdbc
   - enabled: 1
-    path: Assets/Scenes/GameScene.unity
+    path: Assets/Resources/Scenes/GameScene.unity
     guid: 604b033e82aacbb4991d09be82640a6a
   - enabled: 1
-    path: Assets/Scenes/ResultScene.unity
+    path: Assets/Resources/Scenes/ResultScene.unity
     guid: b4206707f47efaf48a430bb52ff2b916
   - enabled: 1
-    path: Assets/Scenes/SelectPictureBookScene.unity
+    path: Assets/Resources/Scenes/SelectPictureBookScene.unity
     guid: 06a15a8604e0e78489ca539f9d57b2e6
   - enabled: 1
-    path: Assets/Scenes/ElementListScene.unity
+    path: Assets/Resources/Scenes/ElementListScene.unity
     guid: c78019e2a8c90c34e9826cfd713f1d00
   - enabled: 1
-    path: Assets/Scenes/ReactionFormulaListScene.unity
+    path: Assets/Resources/Scenes/ReactionFormulaListScene.unity
     guid: bc2949bd99c983c4f92781da24d8c120
   m_configObjects: {}
