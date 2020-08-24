@@ -9,17 +9,17 @@ public class ElementCatch : MonoBehaviour
     GameObject[] ElementBalls, ElementLimitTexts; 
     
     // 表示する座標
-    List<Vector3> LocalBallPos = new List<Vector3>(){ 
-        new Vector3(-0.9f, -0.2f, -1.5f),  // 左上
-        new Vector3(-0.9f, -0.2f, -1.3f),  // 真ん中上
-        new Vector3(-0.9f, -0.2f, -1.1f),  // 右上
-        new Vector3(-0.9f, -0.4f, -1.5f),  // 左下
-        new Vector3(-0.9f, -0.4f, -1.3f),  // 真ん中下
-        new Vector3(-0.9f, -0.4f, -1.1f)   // 右下
-    };
+    // List<Vector3> LocalBallPos = new List<Vector3>(){ 
+    //     new Vector3(-0.9f, -0.2f, -1.5f),  // 左上
+    //     new Vector3(-0.9f, -0.2f, -1.3f),  // 真ん中上
+    //     new Vector3(-0.9f, -0.2f, -1.1f),  // 右上
+    //     new Vector3(-0.9f, -0.4f, -1.5f),  // 左下
+    //     new Vector3(-0.9f, -0.4f, -1.3f),  // 真ん中下
+    //     new Vector3(-0.9f, -0.4f, -1.1f)   // 右下
+    // };
     
-    // 比較用の座標
-    List<Vector3> CompareBallPos = new List<Vector3>(){ 
+    // localPosition座標
+    List<Vector3> BallPos = new List<Vector3>(){ 
         new Vector3(-0.9f, -0.511f, -1.806f),  // 左上
         new Vector3(-0.9f, -0.511f, -1.606f),  // 真ん中上
         new Vector3(-0.9f, -0.511f, -1.406f),  // 右上
@@ -45,7 +45,7 @@ public class ElementCatch : MonoBehaviour
         for(int i = 0; i < ElementBalls.Length; i++)
         {
             for(int j = 0; j < 6; j++){
-                if(ElementBalls[i].transform.localPosition == CompareBallPos[j])
+                if(ElementBalls[i].transform.localPosition == BallPos[j])
                 {
                         Debug.Log("name: " + ElementBalls[i].name);
                 }
@@ -69,7 +69,7 @@ public class ElementCatch : MonoBehaviour
                 if(this.name == ElementBalls[i].name && ElementBalls[i].GetComponent<OVRGrabbable>().isGrabbed == false)
                 {
                     for(int j = 0; j < 6; j++){
-                        if(ElementBalls[i].transform.localPosition == CompareBallPos[j])
+                        if(ElementBalls[i].transform.localPosition == BallPos[j])
                         {
                             existcount += 1;
                         }
@@ -83,10 +83,12 @@ public class ElementCatch : MonoBehaviour
                 if(LimitNumber != 1)
                 {
                     GameObject ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
-                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, LocalBallPos[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))], Quaternion.identity);
+                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))], Quaternion.identity);
                     ElementBall.transform.parent = GameObject.Find("Ball").transform;
                     ElementBall.name = this.name;
+                    ElementBall.transform.localPosition = BallPos[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))];
                     ElementBall.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
+                    ElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
                     ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
                 }
                 ElementLimitTexts[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
