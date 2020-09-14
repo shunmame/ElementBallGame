@@ -5,18 +5,9 @@ using UnityEngine.UI;
 
 public class ElementCatch : MonoBehaviour
 {
-    GameObject Text1, Text2;
+    GameObject ElementBallPf;
     GameObject[] ElementBalls, ElementLimitTexts; 
-    
-    // 表示する座標
-    // List<Vector3> LocalBallPos = new List<Vector3>(){ 
-    //     new Vector3(-0.9f, -0.2f, -1.5f),  // 左上
-    //     new Vector3(-0.9f, -0.2f, -1.3f),  // 真ん中上
-    //     new Vector3(-0.9f, -0.2f, -1.1f),  // 右上
-    //     new Vector3(-0.9f, -0.4f, -1.5f),  // 左下
-    //     new Vector3(-0.9f, -0.4f, -1.3f),  // 真ん中下
-    //     new Vector3(-0.9f, -0.4f, -1.1f)   // 右下
-    // };
+    Material elementH2_material;
     
     // localPosition座標
     List<Vector3> BallPos = new List<Vector3>(){ 
@@ -36,21 +27,14 @@ public class ElementCatch : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Text1 = GameObject.Find("Text1");
-        Text2 = GameObject.Find("Text2");
         // 元素オブジェクトを取得
         ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
         // 残り個数表示テキストオブジェクトを取得
         ElementLimitTexts = GameObject.FindGameObjectsWithTag("ElementLimitText");
-        for(int i = 0; i < ElementBalls.Length; i++)
-        {
-            for(int j = 0; j < 6; j++){
-                if(ElementBalls[i].transform.localPosition == BallPos[j])
-                {
-                        Debug.Log("name: " + ElementBalls[i].name);
-                }
-            }
-        }
+        // エレメントボールのプレファブ読み込み
+        ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
+        // Hのマテリアル取得
+        elementH2_material = Resources.Load("Material/element_H2") as Material;
     }
 
     // Update is called once per frame
@@ -60,38 +44,53 @@ public class ElementCatch : MonoBehaviour
         // 元素オブジェクトが掴まれていて
         if(this.GetComponent<OVRGrabbable>().isGrabbed)
         {
-            // 残り個数
-            LimitNumber = int.Parse(ElementLimitTexts[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))].GetComponent<Text>().text.Substring(1));
-            // 元素リストにすべてあるか確認する。なかったら下の生成をする。
-            int existcount = 0;
-            for (int i = 0; i < ElementBalls.Length; i++)
+            var CatchElement = this.name;
+            this.name = this.GetComponent<ElementInfo>().ElementName;
+            this.GetComponent<ElementInfo>().isCatched = true;
+            if(!GameObject.Find(CatchElement) && CatchElement.Length > 7)
             {
-                if(this.name == ElementBalls[i].name && ElementBalls[i].GetComponent<OVRGrabbable>().isGrabbed == false)
-                {
-                    for(int j = 0; j < 6; j++){
-                        if(ElementBalls[i].transform.localPosition == BallPos[j])
-                        {
-                            existcount += 1;
-                        }
-                    }
-                }
-            }
-            // 後で大量に表示されてしまうので修正する
-            // 新しく元素オブジェクトを作成する
-            if(existcount == 0 && LimitNumber > 0)
-            {
+                // 残り個数
+                LimitNumber = int.Parse(ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text.Substring(1));
+                // 新しく元素オブジェクトを作成する
                 if(LimitNumber != 1)
                 {
-                    GameObject ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
-                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))], Quaternion.identity);
+                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))], Quaternion.identity);
                     ElementBall.transform.parent = GameObject.Find("Ball").transform;
-                    ElementBall.name = this.name;
-                    ElementBall.transform.localPosition = BallPos[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))];
+                    ElementBall.name = CatchElement;
+                    ElementBall.transform.localPosition = BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))];
                     ElementBall.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
                     ElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                    ElementBall.GetComponent<ElementInfo>().ElementName = this.GetComponent<ElementInfo>().ElementName;
                     ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
                 }
-                ElementLimitTexts[PosName.IndexOf(this.name.Substring(0, this.name.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
+                ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
+            }
+        }
+    }
+
+    void OnTriggerEnter(Collider collision)
+    {
+        // 当たったオブジェクトがエレメントかを確認
+        if(collision.gameObject.GetComponent<ElementInfo>())
+        {
+            // 手に掴んでいるものですでに掴んだもの(一覧のと反応しないように)
+            if(collision.gameObject.GetComponent<ElementInfo>().isCatched && this.GetComponent<OVRGrabbable>().isGrabbed)
+            {
+                // エレメントだったらどの元素か確認して
+                if(collision.gameObject.GetComponent<ElementInfo>().ElementName == "H")
+                {
+                    // 新しいエレメントを生成してテクスチャを張る
+                    // 座標を前エレメントの位置にする
+                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, this.transform.localPosition, Quaternion.identity);
+                    ElementBall.transform.localPosition = this.transform.position;
+                    ElementBall.name = "H2";
+                    // H2のテクスチャをはる
+                    ElementBall.GetComponent<Renderer>().material = elementH2_material;
+                    ElementBall.GetComponent<ElementInfo>().ElementName = "H2";
+                    // 合わせたので消す
+                    Destroy(this.gameObject);
+                    // ※恐らく2個でるので対策する
+                }
             }
         }
     }

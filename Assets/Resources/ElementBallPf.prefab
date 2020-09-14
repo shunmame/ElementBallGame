@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3899371481972830286}
   - component: {fileID: 3899209749695122344}
   - component: {fileID: 2079805146726469730}
+  - component: {fileID: 4689868234100355820}
   m_Layer: 8
   m_Name: ElementBallPf
   m_TagString: ElementBall
@@ -66,7 +67,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4003383968683481374}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 0
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_MotionVectors: 1
@@ -158,3 +159,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6da83ffffe5bce94fa847399a4215efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4689868234100355820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4003383968683481374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ed9467105e33684cb7979b8c27fe3c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ElementName: 

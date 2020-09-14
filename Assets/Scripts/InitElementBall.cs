@@ -23,6 +23,8 @@ public class InitElementBall : MonoBehaviour
             ElementBalls[i].GetComponent<Renderer>().material = elementH_material;
             // 残り個数を代入
             ElementLimitTexts[i].GetComponent<Text>().text = "×2";
+            // エレメントの名前をつける
+            ElementBalls[i].GetComponent<ElementInfo>().ElementName = "H";
         }
     }
 
