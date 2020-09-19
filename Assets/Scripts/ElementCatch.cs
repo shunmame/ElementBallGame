@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class ElementCatch : MonoBehaviour
 {
-    GameObject ElementBallPf;
+    GameObject ElementBallPf, NowMonster;
     GameObject[] ElementBalls, ElementLimitTexts; 
     Material elementH2_material;
-    
+    bool oldisGrabbed = true, isThrow = false;
     // localPosition座標
     List<Vector3> BallPos = new List<Vector3>(){ 
         new Vector3(-0.9f, -0.511f, -1.806f),  // 左上
@@ -34,37 +34,53 @@ public class ElementCatch : MonoBehaviour
         // エレメントボールのプレファブ読み込み
         ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
         // Hのマテリアル取得
-        elementH2_material = Resources.Load("Material/element_H2") as Material;
+        elementH2_material = Resources.Load("Material/element/H2") as Material;
+        // 今のモンスター取得
+        NowMonster = GameObject.Find("NowMonster");
     }
 
     // Update is called once per frame
     void Update()
     {
-        var LimitNumber = 0;
-        // 元素オブジェクトが掴まれていて
-        if(this.GetComponent<OVRGrabbable>().isGrabbed)
+        if(isThrow)
         {
-            var CatchElement = this.name;
-            this.name = this.GetComponent<ElementInfo>().ElementName;
-            this.GetComponent<ElementInfo>().isCatched = true;
-            if(!GameObject.Find(CatchElement) && CatchElement.Length > 7)
+            this.transform.position = Vector3.Lerp(this.transform.position, 
+                                                   new Vector3(0, -0.4f, 0.2f), 
+                                                   1f * Time.deltaTime);
+        }
+        else
+        {
+            var LimitNumber = 0;
+            // 元素オブジェクトが掴まれていて
+            if(this.GetComponent<OVRGrabbable>().isGrabbed)
             {
-                // 残り個数
-                LimitNumber = int.Parse(ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text.Substring(1));
-                // 新しく元素オブジェクトを作成する
-                if(LimitNumber != 1)
+                var CatchElement = this.name;
+                this.name = this.GetComponent<ElementInfo>().ElementName;
+                this.GetComponent<ElementInfo>().isCatched = true;
+                if(!GameObject.Find(CatchElement) && CatchElement.Length > 7)
                 {
-                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))], Quaternion.identity);
-                    ElementBall.transform.parent = GameObject.Find("Ball").transform;
-                    ElementBall.name = CatchElement;
-                    ElementBall.transform.localPosition = BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))];
-                    ElementBall.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
-                    ElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                    ElementBall.GetComponent<ElementInfo>().ElementName = this.GetComponent<ElementInfo>().ElementName;
-                    ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
+                    // 残り個数
+                    LimitNumber = int.Parse(ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text.Substring(1));
+                    // 新しく元素オブジェクトを作成する
+                    if(LimitNumber != 1)
+                    {
+                        GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))], Quaternion.identity);
+                        ElementBall.transform.parent = GameObject.Find("Ball").transform;
+                        ElementBall.name = CatchElement;
+                        ElementBall.transform.localPosition = BallPos[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))];
+                        ElementBall.GetComponent<Renderer>().material = this.GetComponent<Renderer>().material;
+                        ElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
+                        ElementBall.GetComponent<ElementInfo>().ElementName = this.GetComponent<ElementInfo>().ElementName;
+                        ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
+                    }
+                    ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
                 }
-                ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
             }
+            if(oldisGrabbed == true && this.GetComponent<OVRGrabbable>().isGrabbed == false)
+            {
+                ThrowToMonster();
+            }
+            oldisGrabbed = this.GetComponent<OVRGrabbable>().isGrabbed;
         }
     }
 
@@ -92,6 +108,20 @@ public class ElementCatch : MonoBehaviour
                     // ※恐らく2個でるので対策する
                 }
             }
+        }
+        Debug.Log(collision.gameObject.name);
+        if(collision.gameObject.name == "ElementWall")
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
+    void ThrowToMonster()
+    {
+        // 離れた時
+        if(OVRInput.Get(OVRInput.Button.One)){
+            Debug.Log("離れた");
+            isThrow = true;
         }
     }
 }

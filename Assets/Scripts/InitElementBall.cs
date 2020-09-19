@@ -15,7 +15,7 @@ public class InitElementBall : MonoBehaviour
         // 残り個数表示テキストオブジェクトを取得
         ElementLimitTexts = GameObject.FindGameObjectsWithTag("ElementLimitText");
         // Hのマテリアル取得
-        Material elementH_material = Resources.Load("Material/element_H") as Material;
+        Material elementH_material = Resources.Load("Material/element/H") as Material;
 
         for(int i = 0; i < 6; i++)
         {
