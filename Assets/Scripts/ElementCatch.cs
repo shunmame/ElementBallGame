@@ -5,10 +5,11 @@ using UnityEngine.UI;
 
 public class ElementCatch : MonoBehaviour
 {
-    GameObject ElementBallPf, NowMonster;
+    GameObject ElementBallPf;
     GameObject[] ElementBalls, ElementLimitTexts; 
     Material elementH2_material;
     bool oldisGrabbed = true, isThrow = false;
+    GameAdmin GameAdminScript;
     // localPosition座標
     List<Vector3> BallPos = new List<Vector3>(){ 
         new Vector3(-0.9f, -0.511f, -1.806f),  // 左上
@@ -35,8 +36,8 @@ public class ElementCatch : MonoBehaviour
         ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
         // Hのマテリアル取得
         elementH2_material = Resources.Load("Material/element/H2") as Material;
-        // 今のモンスター取得
-        NowMonster = GameObject.Find("NowMonster");
+        // GameAdminscriptを取得
+        GameAdminScript = GameObject.Find("GameScript").GetComponent<GameAdmin>();
     }
 
     // Update is called once per frame
@@ -76,7 +77,7 @@ public class ElementCatch : MonoBehaviour
                     ElementLimitTexts[PosName.IndexOf(CatchElement.Substring(0, CatchElement.Length - 7))].GetComponent<Text>().text = "×" + (LimitNumber-1).ToString();
                 }
             }
-            if(oldisGrabbed == true && this.GetComponent<OVRGrabbable>().isGrabbed == false)
+            if(oldisGrabbed == true && this.GetComponent<OVRGrabbable>().isGrabbed == false && this.GetComponent<ElementInfo>().isCatched)
             {
                 ThrowToMonster();
             }
@@ -109,7 +110,6 @@ public class ElementCatch : MonoBehaviour
                 }
             }
         }
-        Debug.Log(collision.gameObject.name);
         if(collision.gameObject.name == "ElementWall")
         {
             Destroy(this.gameObject);
@@ -120,8 +120,10 @@ public class ElementCatch : MonoBehaviour
     {
         // 離れた時
         if(OVRInput.Get(OVRInput.Button.One)){
-            Debug.Log("離れた");
             isThrow = true;
+            this.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
+            GameAdminScript.AddThrowElementDict(this.name);
         }
     }
 }
