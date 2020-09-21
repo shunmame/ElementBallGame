@@ -32,4 +32,17 @@ public class GameSQLController : MonoBehaviour
         string query = "SELECT * FROM GameAnswer";
         return sqlDB.ExecuteQuery(query);
     }
+
+    public DataTable GetAllElement()
+    {
+        if(sqlDB == null)Start();
+        string query = "SELECT * FROM Element";
+        return sqlDB.ExecuteQuery(query);
+    }
+
+    public DataTable GetUseElement()
+    {
+        string query = "SELECT wave, use_element, name, model_path FROM GameContent inner join Element on GameContent.use_element = Element.id";
+        return sqlDB.ExecuteQuery(query);
+    }
 }

@@ -118,7 +118,6 @@ public class ElementCatch : MonoBehaviour
 
     void ThrowToMonster()
     {
-        // 離れた時
         if(OVRInput.Get(OVRInput.Button.One)){
             isThrow = true;
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
