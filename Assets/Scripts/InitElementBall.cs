@@ -48,7 +48,7 @@ public class InitElementBall : MonoBehaviour
     {
         List<int> GetIndex = new List<int>();
         int index;
-        List<string> IgnoreElementName = new List<string> {"H2"};
+        List<string> IgnoreElementName = new List<string> {"H2", "Cl2", "O2"};
         
         UseElementList.Add(GameClearElement[0]);
         for(var i = 0; i < 5; i++)
@@ -56,10 +56,9 @@ public class InitElementBall : MonoBehaviour
             while (true)
             {
                 index = Random.Range(0, AllElement.Rows.Count);
-                if(!GetIndex.Contains(index) && !IgnoreElementName.Contains(AllElement[index]["name"].ToString()))break;             
+                if(!GetIndex.Contains(index) && !IgnoreElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;             
             }
             GetIndex.Add(index);
-            Debug.Log(index);
             UseElementList.Add(AllElement[index]);
         }
         ShuffleList();

@@ -6,10 +6,10 @@ using UnityEngine.UI;
 public class ElementCatch : MonoBehaviour
 {
     GameObject ElementBallPf;
-    GameObject[] ElementBalls, ElementLimitTexts; 
-    Material elementH2_material;
+    GameObject[] ElementBalls, ElementLimitTexts;
     bool oldisGrabbed = true, isThrow = false;
     GameAdmin GameAdminScript;
+    GameSQLController GameSQLCtlerScript;
     // localPosition座標
     List<Vector3> BallPos = new List<Vector3>(){ 
         new Vector3(-0.9f, -0.511f, -1.806f),  // 左上
@@ -25,6 +25,8 @@ public class ElementCatch : MonoBehaviour
         "LowerLeft", "LowerCenter", "LowerRight"
     };
 
+    Dictionary<string, Material> MaterialDict = new Dictionary<string, Material>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,10 +36,14 @@ public class ElementCatch : MonoBehaviour
         ElementLimitTexts = GameObject.FindGameObjectsWithTag("ElementLimitText");
         // エレメントボールのプレファブ読み込み
         ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
-        // Hのマテリアル取得
-        elementH2_material = Resources.Load("Material/element/H2") as Material;
         // GameAdminscriptを取得
         GameAdminScript = GameObject.Find("GameScript").GetComponent<GameAdmin>();
+        // GameAdminscriptを取得
+        GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
+
+        MaterialDict.Add("H2", Resources.Load("Material/element/H2") as Material);
+        MaterialDict.Add("Cl2", Resources.Load("Material/element/Cl2") as Material);
+        MaterialDict.Add("O2", Resources.Load("Material/element/O2") as Material);
     }
 
     // Update is called once per frame
@@ -93,21 +99,7 @@ public class ElementCatch : MonoBehaviour
             // 手に掴んでいるものですでに掴んだもの(一覧のと反応しないように)
             if(collision.gameObject.GetComponent<ElementInfo>().isCatched && this.GetComponent<OVRGrabbable>().isGrabbed)
             {
-                // エレメントだったらどの元素か確認して
-                if(collision.gameObject.GetComponent<ElementInfo>().ElementName == "H")
-                {
-                    // 新しいエレメントを生成してテクスチャを張る
-                    // 座標を前エレメントの位置にする
-                    GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, this.transform.localPosition, Quaternion.identity);
-                    ElementBall.transform.localPosition = this.transform.position;
-                    ElementBall.name = "H2";
-                    // H2のテクスチャをはる
-                    ElementBall.GetComponent<Renderer>().material = elementH2_material;
-                    ElementBall.GetComponent<ElementInfo>().ElementName = "H2";
-                    // 合わせたので消す
-                    Destroy(this.gameObject);
-                    // ※恐らく2個でるので対策する
-                }
+                CoalescenceElement(collision.gameObject.GetComponent<ElementInfo>().ElementName.ToString());
             }
         }
         if(collision.gameObject.name == "ElementWall")
@@ -123,6 +115,24 @@ public class ElementCatch : MonoBehaviour
             this.GetComponent<Rigidbody>().velocity = Vector3.zero;
             this.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             GameAdminScript.AddThrowElementDict(this.name);
+        }
+    }
+
+    private void CoalescenceElement(string PairName)
+    {
+        string NewElementName = GameSQLCtlerScript.GetCoalescenceElementName(this.name.ToString(), PairName);
+        if(NewElementName != "None")
+        {
+            // 座標を前エレメントの位置にする
+            GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, this.transform.localPosition, Quaternion.identity);
+            ElementBall.transform.localPosition = this.transform.position;
+            ElementBall.name = NewElementName;
+            // H2のテクスチャをはる
+            ElementBall.GetComponent<Renderer>().material = MaterialDict[NewElementName];
+            ElementBall.GetComponent<ElementInfo>().ElementName = NewElementName;
+            // 合わせたので消す
+            Destroy(this.gameObject);
+            // ※恐らく2個でるので対策する
         }
     }
 }
