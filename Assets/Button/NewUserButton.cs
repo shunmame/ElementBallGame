@@ -13,19 +13,15 @@ public class NewUserButton : MonoBehaviour
     {
         sqlDB = new SqliteDatabase("ElementBallGame.db");
     }
-
-    // Update is called once per frame
     void Update()
     {
 
     }
     public void OnClick()
     {
-        string query = "INSERT INTO User(name) VALUES ('" + NewUserText.kiueo + "')";
-        Debug.Log(query);
+        string query = "INSERT INTO User(name) VALUES ('" + NewUserText.newtext + "')";
         sqlDB.ExecuteNonQuery(query);
-        Buttonprefab.itai();
-       // MakeUser.utai();
+        Buttonprefab.makingbutton();
 
     }
 }

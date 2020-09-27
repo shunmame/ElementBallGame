@@ -19,7 +19,6 @@ public class Textplay : MonoBehaviour
         foreach (DataRow dr in dt.Rows)
         {
             name[count] = (string)dr["name"];
-            Debug.Log(count.ToString() + ":" + name[count]);
             count = count + 1;
         }
         textplay = name[1];

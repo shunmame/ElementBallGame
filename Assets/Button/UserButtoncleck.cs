@@ -9,18 +9,14 @@ public class UserButtoncleck : MonoBehaviour
     {
         
     }
-
-    // Update is called once per frame
     void Update()
     { }
     public void OnClick()
         {
         
         string testText = this.transform.GetChild(0).gameObject.GetComponent<Text>().text;
-        //Debug.Log(testText);
-        this.GetComponent<UserName>().Namae=testText;
-        //UserName.namae =testText;
-        Debug.Log(this.GetComponent<UserName>().Namae);
+        this.GetComponent<UserName>().Name=testText;
+        Debug.Log(this.GetComponent<UserName>().Name);
     }
     
 }

@@ -10,27 +10,24 @@ public class Buttonprefab : MonoBehaviour
     public GameObject Scroll;
     void Start()
     {
-        atai();
-        }
-        public void atai()
+
+        GameObject obj = (GameObject)Resources.Load("Button");
+
+        for (int i = 0; i < MakeUser.count; i++)
         {
-            GameObject obj = (GameObject)Resources.Load("Button");
-
-            for (int i = 0; i < MakeUser.count; i++)
-            {
-                var parent = Scroll.transform;
-                GameObject aiueo = (GameObject)Instantiate(obj, transform.position, Quaternion.identity, parent);
-                aiueo.transform.Find("texts").GetComponent<Text>().text = MakeUser.name[i];
-            }
-
+            var parent = Scroll.transform;
+            GameObject aiueo = (GameObject)Instantiate(obj, transform.position, Quaternion.identity, parent);
+            aiueo.transform.Find("texts").GetComponent<Text>().text = MakeUser.name[i];
         }
-    public void itai()
+
+    }
+    public void makingbutton()
     {
-        MakeUser.utai();
+        MakeUser.dataload();
         GameObject obj = (GameObject)Resources.Load("Button");
         var parent = Scroll.transform;
-        GameObject aiueo = (GameObject)Instantiate(obj, transform.position, Quaternion.identity ,parent);
-        aiueo.transform.Find("texts").GetComponent<Text>().text = NewUserText.kiueo;
+        GameObject aiueo = (GameObject)Instantiate(obj, transform.position, Quaternion.identity, parent);
+        aiueo.transform.Find("texts").GetComponent<Text>().text = NewUserText.newtext;
     }
-    
+
 }

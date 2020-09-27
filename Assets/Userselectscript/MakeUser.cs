@@ -15,31 +15,11 @@ public class MakeUser : MonoBehaviour
     public int userid;
     void Start()
     {
-        utai();
-        /*
-        sqlDB = new SqliteDatabase("ElementBallGame.db");
-        string query = "SELECT name FROM User";
-        string ids = "SELECT id FROM User";
-        var dt = sqlDB.ExecuteQuery(query);
-        var dl = sqlDB.ExecuteQuery(ids);
-        foreach (DataRow dr in dt.Rows)
-        {
-            name[count] = (string)dr["name"];
-            Debug.Log(count.ToString() + ":" + name[count]);
-            count = count + 1;
-        }
-
-        foreach (DataRow dr in dl.Rows)
-        {
-            id[count2] = (int)dr["id"];
-            Debug.Log(count2.ToString() + ":" + id[count2].ToString());
-            count2 = count2 + 1;
-        }
-        */
-
+        dataload();
+ 
     }
 
-    public void utai()
+    public void dataload()
     {
         sqlDB = new SqliteDatabase("ElementBallGame.db");
         string query = "SELECT name FROM User";
@@ -49,14 +29,12 @@ public class MakeUser : MonoBehaviour
         foreach (DataRow dr in dt.Rows)
         {
             name[count] = (string)dr["name"];
-            Debug.Log(count.ToString() + ":" + name[count]);
             count = count + 1;
         }
 
         foreach (DataRow dr in dl.Rows)
         {
             id[count2] = (int)dr["id"];
-            Debug.Log(count2.ToString() + ":" + id[count2].ToString());
             count2 = count2 + 1;
         }
 

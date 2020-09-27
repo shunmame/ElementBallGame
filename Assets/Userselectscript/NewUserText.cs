@@ -7,7 +7,7 @@ public class NewUserText : MonoBehaviour
 {
     public InputField inputField;
     public Text text;
-    public string kiueo;
+    public string newtext;
 
     void Start()
     {
@@ -18,7 +18,7 @@ public class NewUserText : MonoBehaviour
     public void InputText()
     {
         text.text = inputField.text;
-        kiueo = text.text;
+        newtext = text.text;
     }
 
 }
