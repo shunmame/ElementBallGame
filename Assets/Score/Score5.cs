@@ -5,17 +5,17 @@ using UnityEngine.UI;
 public class Score5 : MonoBehaviour
 {
     private Text targetText;
-    public string score5 = "---";
+    public int score5;
     // Start is called before the first frame update
     void Start()
     {
-
+        this.targetText = this.GetComponent<Text>();
+        this.targetText.text = score5.ToString();
     }
 
     // Update is called once per frame
     void Update()
     {
-        this.targetText = this.GetComponent<Text>();
-        this.targetText.text = score5;
+      
     }
 }
