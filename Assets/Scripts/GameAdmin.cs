@@ -9,6 +9,7 @@ public class GameAdmin : MonoBehaviour
     Dictionary<string, int> ThrowElement = new Dictionary<string, int>();
     DataTable GameContent, GameAnswer;
     GameSQLController GameSQLCtlerScript;
+    InitElementBall InitElementScript;
     Text WaveNumberText, QuestionText, ScoreText, HintText;
     GameObject NowMonster;
     Dictionary<int, Dictionary<string, int>> WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
@@ -26,8 +27,10 @@ public class GameAdmin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // GameAdminscriptを取得
+        // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
+        // InitElementScriptを取得
+        InitElementScript = GameObject.Find("GameScript").GetComponent<InitElementBall>();
         // ShowResultScriptを取得
         ShowResultImgScript = GameObject.Find("CenterCanvas").transform.Find("ResultImage").gameObject.GetComponent<ShowResultImage>();
         // ゲーム内容を取得
@@ -45,7 +48,6 @@ public class GameAdmin : MonoBehaviour
         // 答え用の辞書作成
         CreateWaveAnswerDict(1, 1);
         NowWave = 1;
-        SetNextWaveInfo(100);
     }
 
     // Update is called once per frame
@@ -125,6 +127,7 @@ public class GameAdmin : MonoBehaviour
             SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
             OnButtonCount = 0;
         }
+        InitElementScript.ResetElement();
     }
 
     private void SetNextWaveInfo(int score)
@@ -141,11 +144,14 @@ public class GameAdmin : MonoBehaviour
         GameObject Monster = (GameObject)Instantiate(MonsterPf, new Vector3(0, -0.4f, -0.3f), Quaternion.identity);
         Monster.transform.localScale = new Vector3(30, 30, 30);
         Monster.transform.parent = NowMonster.transform;
+        // 答え用の辞書作成
+        CreateWaveAnswerDict(1, NowWave-1);
     }
 
     private void CreateWaveAnswerDict(int GameType, int Wave)
     {
-        DataTable WaveAnswer = GameSQLCtlerScript.GetWaveGameAnswer(1, 1);
+        DataTable WaveAnswer = GameSQLCtlerScript.GetWaveGameAnswer(1, Wave);
+        WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
         string[] KeyNameList = {"pattern1", "pattern2", "pattern3"};
         for(int PatternNum = 1; PatternNum <= 3; PatternNum++)
         {

@@ -19,7 +19,6 @@ public class ElementCatch : MonoBehaviour
         new Vector3(-0.9f, -0.711f, -1.606f),  // 真ん中下
         new Vector3(-0.9f, -0.711f, -1.406f)   // 右下
     };
-
     List<string> PosName = new List<string>(){
         "UpperLeft", "UpperCenter", "UpperRight", 
         "LowerLeft", "LowerCenter", "LowerRight"
