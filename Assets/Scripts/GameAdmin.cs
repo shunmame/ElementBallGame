@@ -22,7 +22,7 @@ public class GameAdmin : MonoBehaviour
         {2, 50},
         {3, 30},
         {4, 10},
-        {5, 10}
+        {5, 0}
     };
 
     // Start is called before the first frame update
@@ -32,6 +32,8 @@ public class GameAdmin : MonoBehaviour
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // InitElementScriptを取得
         InitElementScript = GameObject.Find("GameScript").GetComponent<InitElementBall>();
+        // scoreを取得
+        // ScoreScript = GameObject.Find("GameScript").GetComponent<Score>();
         // ShowResultScriptを取得
         ShowResultImgScript = GameObject.Find("CenterCanvas").transform.Find("ResultImage").gameObject.GetComponent<ShowResultImage>();
         // ゲーム内容を取得
@@ -135,10 +137,10 @@ public class GameAdmin : MonoBehaviour
                 foreach(Transform child in NextMonster.transform){
                     Destroy(child.gameObject);
                 }
-                Debug.Log("NowWave: " + NowWave.ToString());
-                Debug.Log("id: " + GameContent[NowWave-1]["id"].ToString());
                 GameSQLCtlerScript.InsertWaveClear(1, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);
                 SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
+                PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount]);
+                PlayerPrefs.Save ();
                 OnButtonCount = 0;
             }
             InitElementScript.ResetElement();
