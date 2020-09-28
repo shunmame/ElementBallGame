@@ -5,11 +5,13 @@ using UnityEngine;
 public class GameSQLController : MonoBehaviour
 {
     public SqliteDatabase sqlDB;
+    MyTextDB TextDB;
 
     // Start is called before the first frame update
     void Start()
     {
         sqlDB = new SqliteDatabase("ElementBallGame.db");
+        TextDB = GameObject.Find("GameScript").GetComponent<MyTextDB>();
         // test_GetCoalescenceElementName();
     }
 
@@ -63,5 +65,10 @@ public class GameSQLController : MonoBehaviour
         var dt = sqlDB.ExecuteQuery(query);
         if(dt.Rows.Count == 0)return "None";
         else return dt[0]["chemical_formula"].ToString();
+    }
+
+    public void InsertWaveClear(int user_id, int game_id, int throw_count)
+    {
+        TextDB.InsertClearData(user_id, game_id, throw_count);
     }
 }
