@@ -14,7 +14,7 @@ public class GameAdmin : MonoBehaviour
     Text WaveNumberText, QuestionText, ScoreText, HintText;
     GameObject NowMonster, NextMonster;
     Dictionary<int, Dictionary<string, int>> WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
-    int UserAnswerResult, OnButtonCount = 0, NowWave = 0;
+    int UserAnswerResult, OnButtonCount = 0, NowWave = 0, UserId;
     ShowResultImage ShowResultImgScript;
     Dictionary<int, int> WaveThrowScore = new Dictionary<int, int>()
     {
@@ -28,6 +28,8 @@ public class GameAdmin : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // UserId取得
+        UserId = int.Parse(PlayerPrefs.GetString("UserId"));
         // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // InitElementScriptを取得
@@ -126,25 +128,23 @@ public class GameAdmin : MonoBehaviour
         ShowResultImgScript.ChangeImage(UserAnswerResult);
         ThrowElement = new Dictionary<string, int>();
         OnButtonCount += 1;
-        if(NowWave == 5)Invoke("GoNextScene", 1.5f);
-        else
+
+        if(UserAnswerResult == 1 || OnButtonCount == 5)
         {
-            if(UserAnswerResult == 1 || OnButtonCount == 5)
-            {
-                foreach(Transform child in NowMonster.transform){
-                    Destroy(child.gameObject);
-                }
-                foreach(Transform child in NextMonster.transform){
-                    Destroy(child.gameObject);
-                }
-                GameSQLCtlerScript.InsertWaveClear(1, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);
-                SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
-                PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount]);
-                PlayerPrefs.Save ();
-                OnButtonCount = 0;
+            foreach(Transform child in NowMonster.transform){
+                Destroy(child.gameObject);
             }
-            InitElementScript.ResetElement();
+            foreach(Transform child in NextMonster.transform){
+                Destroy(child.gameObject);
+            }
+            GameSQLCtlerScript.InsertWaveClear(UserId, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);
+            SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
+            PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount]);
+            PlayerPrefs.Save ();
+            if(NowWave == 5)Invoke("GoNextScene", 1.5f);
+            OnButtonCount = 0;
         }
+        InitElementScript.ResetElement();
     }
 
     private void GoNextScene()

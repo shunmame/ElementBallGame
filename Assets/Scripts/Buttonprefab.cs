@@ -18,6 +18,7 @@ public class Buttonprefab : MonoBehaviour
             var parent = Scroll.transform;
             GameObject aiueo = (GameObject)Instantiate(obj, transform.position, Quaternion.identity, parent);
             aiueo.transform.Find("texts").GetComponent<Text>().text = MakeUser.name[i];
+            aiueo.transform.Find("UserId").GetComponent<Text>().text = MakeUser.id[i].ToString();
         }
 
     }

@@ -11,12 +11,11 @@ public class MyTextDB : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UserClearTexts = File.ReadAllLines("Assets/Scripts/UserClear.txt");
+        UserClearTexts = File.ReadAllLines("Assets/Scripts/UserClearDB.txt");
         foreach (var text in UserClearTexts) {
 			Debug.Log ("各行表示： " + text);
             UserClearList.Add(new List<int>(Array.ConvertAll(text.Split(','), int.Parse)));
 		}
-        InsertClearData(2, 2, 3);
     }
 
     // Update is called once per frame
@@ -33,6 +32,6 @@ public class MyTextDB : MonoBehaviour
         {
             InsertData[i] = UserClearList[i][0].ToString() + "," + UserClearList[i][1].ToString() + "," + UserClearList[i][2].ToString() + "," + UserClearList[i][3].ToString();
         }
-        File.WriteAllLines("Assets/Scripts/UserClear.txt", InsertData);
+        File.WriteAllLines("Assets/Scripts/UserClearDB.txt", InsertData);
     }
 }
