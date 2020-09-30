@@ -29,7 +29,7 @@ public class GameAdmin : MonoBehaviour
     void Start()
     {
         // UserId取得
-        UserId = int.Parse(PlayerPrefs.GetString("UserId"));
+        UserId = int.Parse(PlayerPrefs.GetString("UserId", "0"));
         // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // InitElementScriptを取得

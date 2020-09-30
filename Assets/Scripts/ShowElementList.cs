@@ -13,6 +13,7 @@ public class ShowElementList : MonoBehaviour
     void Start()
     {
         InfoCanvas = GameObject.Find("InfoCanvas");
+        if(this.name != "Button")InfoCanvas.gameObject.SetActive(false);
         ElementDiv = GameObject.Find("ElementDiv");
         // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
