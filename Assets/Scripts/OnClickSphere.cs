@@ -21,6 +21,6 @@ public class OnClickSphere : MonoBehaviour
 
     public void OnClick()
     {
-        ShowElementListScript.ShowInfoCanvas(ElementName);
+        ShowElementListScript.ShowInfoCanvas(ElementName, this.gameObject);
     }
 }
