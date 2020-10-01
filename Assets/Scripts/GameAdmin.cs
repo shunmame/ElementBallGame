@@ -24,6 +24,13 @@ public class GameAdmin : MonoBehaviour
         {4, 10},
         {5, 0}
     };
+    Dictionary<int, List<Vector3>> ShowMonsterPosDict = new Dictionary<int, List<Vector3>>()
+    {
+        {1, new List<Vector3>(){new Vector3(0, -0.4f, -0.3f)}},
+        {2, new List<Vector3>(){new Vector3(-0.2f, -0.4f, -0.3f), new Vector3(0.2f, -0.4f, -0.3f)}},
+        {3, new List<Vector3>(){new Vector3(-0.2f, -0.45f, -0.3f), new Vector3(0.2f, -0.45f, -0.3f), new Vector3(0, -0.35f, -0.1f)}},
+        {4, new List<Vector3>(){new Vector3(-0.2f, -0.45f, -0.3f), new Vector3(0.2f, -0.45f, -0.3f), new Vector3(-0.2f, -0.35f, -0.1f),  new Vector3(0.2f, -0.35f, -0.1f)}},
+    };
 
     // Start is called before the first frame update
     void Start()
@@ -81,11 +88,16 @@ public class GameAdmin : MonoBehaviour
         QuestionText.text = GameContent[0]["question"].ToString();
         ScoreText.text = 0.ToString() + " P";
         HintText.text = GameContent[0]["hint"].ToString();
-        // wave1のモンスター表示
-        Object NowMonsterPf = Resources.Load(GameContent[0]["model_path"].ToString());
-        GameObject nowMonster = (GameObject)Instantiate(NowMonsterPf, new Vector3(0, -0.4f, -0.3f), Quaternion.identity);
-        nowMonster.transform.localScale = new Vector3(30, 30, 30);
-        nowMonster.transform.parent = NowMonster.transform;
+        int MonsterNum = int.Parse(GameContent[0]["monster_number"].ToString());
+        for(int i = 0; i < MonsterNum; i++)
+        {
+            // wave1のモンスター表示
+            Object NowMonsterPf = Resources.Load(GameContent[0]["model_path"].ToString());
+            // GameObject nowMonster = (GameObject)Instantiate(NowMonsterPf, new Vector3(0, -0.4f, -0.3f), Quaternion.identity);
+            GameObject nowMonster = (GameObject)Instantiate(NowMonsterPf, ShowMonsterPosDict[MonsterNum][i], Quaternion.identity);
+            nowMonster.transform.localScale = new Vector3(30, 30, 30);
+            nowMonster.transform.parent = NowMonster.transform;
+        }
         // wave1の次のモンスター表示
         Object NextMonsterPf = Resources.Load(GameContent[1]["model_path"].ToString());
         GameObject nextMonster = (GameObject)Instantiate(NextMonsterPf, new Vector3(0.8f, -0.18f, -0.6f), Quaternion.Euler(0, 90, 0));
@@ -137,12 +149,15 @@ public class GameAdmin : MonoBehaviour
             foreach(Transform child in NextMonster.transform){
                 Destroy(child.gameObject);
             }
-            GameSQLCtlerScript.InsertWaveClear(UserId, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);
-            SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
+            GameSQLCtlerScript.InsertWaveClear(UserId, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);    
             PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount]);
             PlayerPrefs.Save ();
             if(NowWave == 5)Invoke("GoNextScene", 1.5f);
-            OnButtonCount = 0;
+            else
+            {
+                SetNextWaveInfo(WaveThrowScore[OnButtonCount]);
+                OnButtonCount = 0;
+            }
         }
         InitElementScript.ResetElement();
     }
@@ -157,15 +172,20 @@ public class GameAdmin : MonoBehaviour
     {
         NowWave += 1;
         // 次のwaveの情報入力
+        Debug.Log(NowWave);
         WaveNumberText.text = GameContent[NowWave-1]["wave"].ToString() + " / 5";
         QuestionText.text = GameContent[NowWave-1]["question"].ToString();
         ScoreText.text = (int.Parse(ScoreText.text.ToString().Substring(0, ScoreText.text.ToString().Length - 2)) + score).ToString() + " P";
         HintText.text = GameContent[NowWave-1]["hint"].ToString();
-        // 次のwaveのモンスター表示
-        Object NowMonsterPf = Resources.Load(GameContent[NowWave-1]["model_path"].ToString());
-        GameObject nowMonster = (GameObject)Instantiate(NowMonsterPf, new Vector3(0, -0.4f, -0.3f), Quaternion.identity);
-        nowMonster.transform.localScale = new Vector3(30, 30, 30);
-        nowMonster.transform.parent = NowMonster.transform;
+        int MonsterNum = int.Parse(GameContent[NowWave-1]["monster_number"].ToString());
+        for(int i = 0; i < MonsterNum; i++)
+        {
+            // 次のwaveのモンスター表示
+            Object NowMonsterPf = Resources.Load(GameContent[NowWave-1]["model_path"].ToString());
+            GameObject nowMonster = (GameObject)Instantiate(NowMonsterPf, ShowMonsterPosDict[MonsterNum][i], Quaternion.identity);
+            nowMonster.transform.localScale = new Vector3(30, 30, 30);
+            nowMonster.transform.parent = NowMonster.transform;
+        }
         if(NowWave != 5)
         {
             // 次のwaveの次のモンスター表示
@@ -174,6 +194,8 @@ public class GameAdmin : MonoBehaviour
             nextMonster.transform.localScale = new Vector3(10, 10, 10);
             nextMonster.transform.localRotation = Quaternion.Euler(0, 45, 0);
             nextMonster.transform.parent = NextMonster.transform;
+            // ヒントを非表示に
+            HintText.enabled = false;
         }
         // 答え用の辞書作成
         CreateWaveAnswerDict(1, NowWave);
@@ -195,5 +217,10 @@ public class GameAdmin : MonoBehaviour
             }
             WaveAnswerDict.Add(PatternNum, PatternAnsDict);
         }
+    }
+
+    public void ShowHint()
+    {
+        ScoreText.text = (int.Parse(ScoreText.text.ToString().Substring(0, ScoreText.text.ToString().Length - 2)) - 30).ToString() + " P";
     }
 }

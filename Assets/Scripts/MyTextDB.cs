@@ -13,7 +13,7 @@ public class MyTextDB : MonoBehaviour
     {
         UserClearTexts = File.ReadAllLines("Assets/Scripts/UserClearDB.txt");
         foreach (var text in UserClearTexts) {
-			Debug.Log ("各行表示： " + text);
+			// Debug.Log ("各行表示： " + text);
             UserClearList.Add(new List<int>(Array.ConvertAll(text.Split(','), int.Parse)));
 		}
     }
