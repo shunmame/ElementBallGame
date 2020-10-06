@@ -7,6 +7,7 @@ public class OnClickRFButton : MonoBehaviour
 {
     ShowReactionFormula ShowRFScript;
     public string Name, Feature = "";
+    public List<Sprite> StructureImg = new List<Sprite>();
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +24,6 @@ public class OnClickRFButton : MonoBehaviour
 
     public void OnClick()
     {
-        ShowRFScript.ShowInfo(Name, Feature, this.gameObject);
+        ShowRFScript.ShowInfo(Name, Feature, this.gameObject, StructureImg);
     }
 }
