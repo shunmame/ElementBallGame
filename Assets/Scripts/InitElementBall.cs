@@ -64,16 +64,17 @@ public class InitElementBall : MonoBehaviour
     {
         List<int> GetIndex = new List<int>();
         int index;
-        List<string> IgnoreElementName = new List<string> {"H2", "Cl2", "O2", "Mg", "K", "Ag", "Ca"};
+        // List<string> IgnoreElementName = new List<string> {"H2", "Cl2", "O2"};
+        List<string> RecognizeElementName = new List<string> {"C", "Cl", "Cu", "Fe", "H", "Mg", "Na", "O", "S"};
         
         UseElementList.Add(GameClearElement[0]);
         for(var i = 0; i < 5; i++)
         {
             while (true)
             {
-                // index = Random.Range(0, AllElement.Rows.Count);
                 index = Random.Range(0, AllElement.Rows.Count);
-                if(!GetIndex.Contains(index) && !IgnoreElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;             
+                // if(!GetIndex.Contains(index) && !IgnoreElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;
+                if(!GetIndex.Contains(index) && RecognizeElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;
             }
             GetIndex.Add(index);
             UseElementList.Add(AllElement[index]);
