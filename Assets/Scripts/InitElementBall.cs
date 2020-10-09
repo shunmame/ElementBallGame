@@ -10,7 +10,7 @@ public class InitElementBall : MonoBehaviour
     GameObject[] ElementBalls, ElementLimitTexts;
     GameSQLController GameSQLCtlerScript;
     DataTable AllElement, GameClearElement;
-    List<DataRow> UseElementList = new List<DataRow>();
+    List<string> UseElementList = new List<string>();
     List<string> PosName = new List<string>(){
         "UpperLeft", "UpperCenter", "UpperRight", 
         "LowerLeft", "LowerCenter", "LowerRight"
@@ -37,20 +37,21 @@ public class InitElementBall : MonoBehaviour
         // すべての元素を取得
         AllElement = GameSQLCtlerScript.GetAllElement();
         // 正解に必要とする元素を取得
-        GameClearElement = GameSQLCtlerScript.GetUseElement();
+        GameClearElement = GameSQLCtlerScript.GetUseElement(PlayerPrefs.GetInt("GameType", 1), 1);
         // ゲームで使用できるリストを作成
         GetUseElementList();
         // エレメントボールのプレファブ読み込み
         ElementBallPf = (GameObject)Resources.Load("ElementBallPf");
         for(int i = 0; i < UseElementList.Count(); i++)
         {
-            Material ElementTextureMaterial = Resources.Load(UseElementList[i]["model_path"].ToString()) as Material;
+            var ElementInfo = GameSQLCtlerScript.GetElementInfo(UseElementList[i]);
+            Material ElementTextureMaterial = Resources.Load(ElementInfo[0]["model_path"].ToString()) as Material;
             // Hのテクスチャをはる
             ElementBalls[i].GetComponent<Renderer>().material = ElementTextureMaterial;
             // 残り個数を代入
             ElementLimitTexts[i].GetComponent<Text>().text = "×5";
             // エレメントの名前をつける
-            ElementBalls[i].GetComponent<ElementInfo>().ElementName = UseElementList[i]["name"].ToString();
+            ElementBalls[i].GetComponent<ElementInfo>().ElementName = ElementInfo[0]["name"].ToString();
         }
     }
 
@@ -66,19 +67,30 @@ public class InitElementBall : MonoBehaviour
         int index;
         // List<string> IgnoreElementName = new List<string> {"H2", "Cl2", "O2"};
         List<string> RecognizeElementName = new List<string> {"C", "Cl", "Cu", "Fe", "H", "Mg", "Na", "O", "S"};
-        
-        UseElementList.Add(GameClearElement[0]);
-        for(var i = 0; i < 5; i++)
+        string[] AnsElement = GameClearElement[0]["pattern1_element"].ToString().Split(',');
+        foreach(var EName in AnsElement)
+        {
+            Debug.Log(EName);
+            if(EName == "Cl2")UseElementList.Add("Cl");
+            else if(EName == "O2")UseElementList.Add("O");
+            else if(EName == "H2")UseElementList.Add("H");
+            else UseElementList.Add(EName);
+        }
+        // for(var i = 0; i < 5-UseElementList.Count(); i++)
+        // {
+        while(UseElementList.Count() < 6)
         {
             while (true)
             {
                 index = Random.Range(0, AllElement.Rows.Count);
                 // if(!GetIndex.Contains(index) && !IgnoreElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;
-                if(!GetIndex.Contains(index) && RecognizeElementName.Contains(AllElement[index]["name"].ToString()) && AllElement[index]["name"].ToString() != GameClearElement[0]["name"].ToString())break;
+                if(!GetIndex.Contains(index) && RecognizeElementName.Contains(AllElement[index]["name"].ToString()) && !UseElementList.Contains(AllElement[index]["name"].ToString()))break;
             }
             GetIndex.Add(index);
-            UseElementList.Add(AllElement[index]);
+            UseElementList.Add(AllElement[index]["name"].ToString());
         }
+        // }
+        // foreach(var item in UseElementList){Debug.Log(item);}
         ShuffleList();
     }
 
@@ -93,60 +105,26 @@ public class InitElementBall : MonoBehaviour
         }
     }
 
-    public void ResetElement()
+    public void ResetElement(int OnButtonCount, int GameType, int NowWave)
     {
-        int counter = 0;
-        bool isExist = false;
-        Dictionary<string, int> CheckExist = new Dictionary<string, int>
-        {
-            {"UpperLeft", 0},
-            {"UpperCenter", 0},
-            {"UpperRight", 0}, 
-            {"LowerLeft", 0},
-            {"LowerCenter", 0},
-            {"LowerRight", 0}
-        };
-
+        GameClearElement = GameSQLCtlerScript.GetUseElement(GameType, NowWave);
+        if(OnButtonCount == 0)GetUseElementList();
         // 元素オブジェクトを取得
         ElementBalls = GameObject.FindGameObjectsWithTag("ElementBall");
         foreach (var ElementBall in ElementBalls)
         {
-            if(ElementBall.name.Length <= 7)continue;
-            Debug.Log(ElementBall.name);
-            if(PosName.Contains(ElementBall.name.Substring(0, ElementBall.name.Length - 7)))
-            {
-                Debug.Log(ElementBall.name.Substring(0, ElementBall.name.Length - 7));
-                CheckExist[ElementBall.name.Substring(0, ElementBall.name.Length - 7)] = 1;
-                break;
-            }
+            Destroy(ElementBall);
         }
-        foreach (var item in CheckExist){
-            if(item.Value == 0)
-            {
-                // Debug.Log(item.Key);
-                // Debug.Log(PosName.IndexOf(item.Key));
-                GameObject newElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[PosName.IndexOf(item.Key)], Quaternion.identity);
-                newElementBall.transform.parent = GameObject.Find("Ball").transform;
-                newElementBall.name = item.Key+"Element";
-                newElementBall.transform.localPosition = BallPos[PosName.IndexOf(item.Key)];
-                Material ElementTextureMaterial = Resources.Load(UseElementList[PosName.IndexOf(item.Key)]["model_path"].ToString()) as Material;
-                newElementBall.GetComponent<Renderer>().material = ElementTextureMaterial;
-                newElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
-                newElementBall.GetComponent<ElementInfo>().ElementName = UseElementList[PosName.IndexOf(item.Key)]["name"].ToString();  
-            }
-        }
-        CheckExist = new Dictionary<string, int>
-        {
-            {"UpperLeft", 0},
-            {"UpperCenter", 0},
-            {"UpperRight", 0}, 
-            {"LowerLeft", 0},
-            {"LowerCenter", 0},
-            {"LowerRight", 0}
-        };
-        for(int i = 0; i < ElementLimitTexts.Count(); i++)
-        {
-            // 残り個数を代入
+        for(int i = 0; i < 6; i++){
+            GameObject newElementBall = (GameObject)Instantiate(ElementBallPf, BallPos[i], Quaternion.identity);
+            newElementBall.transform.parent = GameObject.Find("Ball").transform;
+            newElementBall.name = PosName[i]+"Element";
+            newElementBall.transform.localPosition = BallPos[i];
+            var ElementInfo = GameSQLCtlerScript.GetElementInfo(UseElementList[i]);
+            Material ElementTextureMaterial = Resources.Load(ElementInfo[0]["model_path"].ToString()) as Material;
+            newElementBall.GetComponent<Renderer>().material = ElementTextureMaterial;
+            newElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
+            newElementBall.GetComponent<ElementInfo>().ElementName = UseElementList[i].ToString();
             ElementLimitTexts[i].GetComponent<Text>().text = "×5";
         }
     }

@@ -13,6 +13,7 @@ public class GameSQLController : MonoBehaviour
         sqlDB = new SqliteDatabase("ElementBallGame.db");
         TextDB = GameObject.Find("GameScript").GetComponent<MyTextDB>();
         // test_GetCoalescenceElementName();
+        // test_GetUseElement();
     }
 
     // Update is called once per frame
@@ -27,10 +28,15 @@ public class GameSQLController : MonoBehaviour
         Debug.Log(GetCoalescenceElementName("H", "Cl"));
     }
 
-    public DataTable GetGameContent()
+    private void test_GetUseElement()
+    {
+        GetUseElement(2, 1);
+    }
+
+    public DataTable GetGameContent(int GameType)
     {
         if(sqlDB == null)Start();
-        string query = "SELECT * FROM GameContent inner join Monster on GameContent.monster_id = Monster.id";
+        string query = "SELECT * FROM GameContent inner join Monster on GameContent.monster_id = Monster.id where game_type = " + GameType;
         return sqlDB.ExecuteQuery(query);
     }
 
@@ -53,9 +59,11 @@ public class GameSQLController : MonoBehaviour
         return sqlDB.ExecuteQuery(query);
     }
 
-    public DataTable GetUseElement()
+    public DataTable GetUseElement(int GameType, int Wave)
     {
-        string query = "SELECT wave, use_element, name, model_path FROM GameContent inner join Element on GameContent.use_element = Element.id";
+        string query = "SELECT id FROM GameContent where wave = " + Wave + " and game_type = " + GameType;
+        var game_id = sqlDB.ExecuteQuery(query)[0];
+        query = "SELECT * FROM GameAnswer where game_id = " + game_id["id"];
         return sqlDB.ExecuteQuery(query);
     }
 
@@ -70,5 +78,11 @@ public class GameSQLController : MonoBehaviour
     public void InsertWaveClear(int user_id, int game_id, int throw_count)
     {
         TextDB.InsertClearData(user_id, game_id, throw_count);
+    }
+
+    public DataTable GetElementInfo(string EName)
+    {
+        string query = "SELECT * FROM Element where name = '" + EName + "'";
+        return sqlDB.ExecuteQuery(query);
     }
 }

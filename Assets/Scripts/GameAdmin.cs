@@ -14,7 +14,7 @@ public class GameAdmin : MonoBehaviour
     Text WaveNumberText, QuestionText, ScoreText, HintText;
     GameObject NowMonster, NextMonster;
     Dictionary<int, Dictionary<string, int>> WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
-    int UserAnswerResult, OnButtonCount = 0, NowWave = 0, UserId;
+    int UserAnswerResult, OnButtonCount = 0, NowWave = 0, UserId, GameType;
     ShowResultImage ShowResultImgScript;
     Dictionary<int, int> WaveThrowScore = new Dictionary<int, int>()
     {
@@ -37,6 +37,8 @@ public class GameAdmin : MonoBehaviour
     {
         // UserId取得
         UserId = int.Parse(PlayerPrefs.GetString("UserId", "0"));
+        // GameTypeの取得
+        GameType = PlayerPrefs.GetInt("GameType", 1);
         // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // InitElementScriptを取得
@@ -46,9 +48,9 @@ public class GameAdmin : MonoBehaviour
         // ShowResultScriptを取得
         ShowResultImgScript = GameObject.Find("CenterCanvas").transform.Find("ResultImage").gameObject.GetComponent<ShowResultImage>();
         // ゲーム内容を取得
-        GameContent = GameSQLCtlerScript.GetGameContent();
+        GameContent = GameSQLCtlerScript.GetGameContent(GameType);
         // 答えを取得
-        GameAnswer = GameSQLCtlerScript.GetGameAnswer();
+        // GameAnswer = GameSQLCtlerScript.GetGameAnswer();
         // オブジェクトの取得
         WaveNumberText = GameObject.Find("WaveText").GetComponent<Text>();
         QuestionText = GameObject.Find("QuestionText").GetComponent<Text>();
@@ -60,7 +62,7 @@ public class GameAdmin : MonoBehaviour
         SetfirstWaveInfo();
         NowWave = 1;
         // 答え用の辞書作成
-        CreateWaveAnswerDict(1, NowWave);
+        CreateWaveAnswerDict(GameType, NowWave);
     }
 
     // Update is called once per frame
@@ -159,7 +161,7 @@ public class GameAdmin : MonoBehaviour
                 OnButtonCount = 0;
             }
         }
-        InitElementScript.ResetElement();
+        InitElementScript.ResetElement(OnButtonCount, GameType, NowWave);
     }
 
     private void GoNextScene()
@@ -198,25 +200,21 @@ public class GameAdmin : MonoBehaviour
             HintText.enabled = false;
         }
         // 答え用の辞書作成
-        CreateWaveAnswerDict(1, NowWave);
+        CreateWaveAnswerDict(GameType, NowWave);
     }
 
     private void CreateWaveAnswerDict(int GameType, int Wave)
     {
-        DataTable WaveAnswer = GameSQLCtlerScript.GetWaveGameAnswer(1, Wave);
+        DataTable WaveAnswer = GameSQLCtlerScript.GetWaveGameAnswer(GameType, Wave);
         WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
-        string[] KeyNameList = {"pattern1", "pattern2", "pattern3"};
-        for(int PatternNum = 1; PatternNum <= 3; PatternNum++)
+        string[] AnsElement = WaveAnswer[0]["pattern1_element"].ToString().Split(',');
+        string[] AnsElementNum = WaveAnswer[0]["pattern1_element_required_number"].ToString().Split(',');
+        Dictionary<string, int> PatternAnsDict = new Dictionary<string, int>();
+        for (int i = 0; i < AnsElement.Length; i++)
         {
-            string[] AnsElement = WaveAnswer[0]["pattern" + PatternNum.ToString() + "_element"].ToString().Split(',');
-            string[] AnsElementNum = WaveAnswer[0]["pattern" + PatternNum.ToString() + "_element_required_number"].ToString().Split(',');
-            Dictionary<string, int> PatternAnsDict = new Dictionary<string, int>();
-            for (int i = 0; i < AnsElement.Length; i++)
-            {
-                PatternAnsDict.Add(AnsElement[i], int.Parse(AnsElementNum[i]));
-            }
-            WaveAnswerDict.Add(PatternNum, PatternAnsDict);
+            PatternAnsDict.Add(AnsElement[i], int.Parse(AnsElementNum[i]));
         }
+        WaveAnswerDict.Add(1, PatternAnsDict);
     }
 
     public void ShowHint()

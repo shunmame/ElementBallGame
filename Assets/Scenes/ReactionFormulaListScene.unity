@@ -265,7 +265,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Na\u2026\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u53CD\u5FDC\u6027\u306E\u9AD8\u3044\u91D1\u5C5E\u3067\u6C34\u3068\u6FC0\u3057\u304F\u53CD\u5FDC
+    Cl\u2082\u2026\u5869\u7D20\u3001\u5E38\u6E29\u3067\u306F\u9EC4\u7DD1\u8272\u3067\u523A\u6FC0\u81ED\u306E\u3042\u308B\u6C17\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 3928b3ceaeee6d0439e7e9abb520222f, type: 3}
   - {fileID: 21300000, guid: d669adbb938f8e04eb5ff389d238d411, type: 3}
@@ -491,7 +492,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Cu\u2026\u9285\u3001\u5149\u6CA2\u306E\u3042\u308B\u8D64\u8272\u306E\u91D1\u5C5E
+    Cl\u2082\u2026\u5869\u7D20\u3001\u5E38\u6E29\u3067\u306F\u9EC4\u7DD1\u8272\u3067\u523A\u6FC0\u81ED\u306E\u3042\u308B\u6C17\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 54cb65f5c3da3ec4197df0756cc3eccc, type: 3}
   - {fileID: 21300000, guid: 39fb801edbfe8244ab505efba48eb7b9, type: 3}
@@ -1107,7 +1109,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "FeCl\u2082\u2026\u5869\u5316\u9244\u3001\u4E7E\u3044\u305F\u5869\u5316\u6C34\u7D20\u3067\u9244\u3092\u71B1\u3059\u308B\u3068\u5F97\u3089\u308C\u308B
+    H\u2082S\u2026\u786B\u5316\u6C34\u7D20\u3001\u8150\u5375\u81ED\u3092\u6301\u3064\u7121\u8272\u306E\u6C17\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 12c4e242932f4fe40b659b5fd82d2d7e, type: 3}
   - {fileID: 21300000, guid: 4ea10e2fea93be14aa9d4537a8521e99, type: 3}
@@ -1741,7 +1744,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CH\u2083COONa\u2026\u9162\u9178\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u4FDD\u5B58\u6599\u3084\u4FDD\u6E29\u6750\u306B\u5229\u7528\u3055\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 062d63e890f120048a6171a2ab8640d6, type: 3}
   - {fileID: 21300000, guid: a4bae6ff0f965a848903e436eb6dd570, type: 3}
@@ -2215,7 +2219,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "NaCl\u2026\u5869\u5316\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u5869\u3068\u3057\u3066\u5229\u7528
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: e44ead3e685774e4180e62e33325e861, type: 3}
   - {fileID: 21300000, guid: 9eafc24c2cdc19f4295859f8789d4c6c, type: 3}
@@ -2441,7 +2446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "\u9ED2\u8272\u3001\u5F37\u78C1\u6027\u306E\u7269\u8CEA\u3002\u9ED2\u9306\u306E\u4E3B\u6210\u5206\u3002"
   StructureImg:
   - {fileID: 21300000, guid: 00bb8f4fd26d63046b6ffe6bc73b4380, type: 3}
 --- !u!1 &571182746
@@ -2795,7 +2800,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "\u7121\u8272\u7121\u81ED\u306E\u6C17\u4F53\u3002\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B\u3002"
   StructureImg:
   - {fileID: 21300000, guid: 1e1ae96dd26f3f342b021adfdf70f5e6, type: 3}
 --- !u!1 &635716869
@@ -3020,7 +3025,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CaCl\u2082\u2026\u5869\u5316\u30AB\u30EB\u30B7\u30A6\u30E0\u3001\u878D\u96EA\u5264\u306A\u3069\u306B\u5229\u7528
+    NH\u2083\u2026\u30A2\u30F3\u30E2\u30CB\u30A2\u3001\u523A\u6FC0\u81ED\u306E\u3042\u308B\u53EF\u71C3\u6027\u6C17\u4F53
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 9fd5b5b7bf53f46449bf6fd51644a01a, type: 3}
   - {fileID: 21300000, guid: f234acc80ce770e41a08ba499ad7e8d0, type: 3}
@@ -3522,7 +3529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "AgCl\u2026\u5869\u5316\u9280\u3001\u767D\u8272\u306E\u5FAE\u5C0F\u306A\u7D50\u6676
+    NaNO\u2083\u2026\u785D\u9178\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u6C34\u306B\u6EB6\u3051\u3084\u3059\u3044\u7121\u8272\u306E\u7D50\u6676"
   StructureImg:
   - {fileID: 21300000, guid: 44be712b5448dfe41af05d2521ee4ba5, type: 3}
   - {fileID: 21300000, guid: f4f5641f44fb128428225c6b0a1993ff, type: 3}
@@ -3775,7 +3783,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CaCO\u2083\u2026\u70AD\u9178\u30AB\u30EB\u30B7\u30A6\u30E0\u3001\u6C34\u306B\u306F\u6EB6\u3051\u306B\u304F\u3044
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: bd76f3bcc5c477d438766879d7f7ed0c, type: 3}
   - {fileID: 21300000, guid: 9406cd3aaa85faf4cb0ab9536838d663, type: 3}
@@ -4120,7 +4129,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CaCO\u2083\u2026\u70AD\u9178\u30AB\u30EB\u30B7\u30A6\u30E0\u3001\u6C34\u306B\u306F\u6EB6\u3051\u306B\u304F\u3044
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 98037385b8dc624429429568f3aa547b, type: 3}
   - {fileID: 21300000, guid: 9b7bc71f440a8ea4b92d40d6ef6549bb, type: 3}
@@ -4420,7 +4430,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Fe\u2026\u9244\u3001\u9060\u5F81\u30FB\u5C55\u6027\u306B\u5BCC\u307F\u3001\u5F37\u78C1\u6027\u3092\u6301\u3064
+    CO\u2082\u2026\u4E8C\u9178\u5316\u70AD\u7D20\u3001\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B"
   StructureImg:
   - {fileID: 21300000, guid: bc1cb5977f1ce9744b9207191ab34b60, type: 3}
   - {fileID: 21300000, guid: 1ddc6dd3707753b48b7ed834bdb7afdc, type: 3}
@@ -5042,7 +5053,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Cu\u2026\u9285\u3001\u5149\u6CA2\u306E\u3042\u308B\u8D64\u8272\u306E\u91D1\u5C5E
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: c5f97cac392dac24082f5cc0009729ea, type: 3}
   - {fileID: 21300000, guid: 9e3b70945639843459d8122966caa39e, type: 3}
@@ -5492,7 +5504,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "BaSO\u2084\u2026\u786B\u9178\u30D0\u30EA\u30A6\u30E0\u3001\u767D\u8272\u306E\u7D50\u6676\u3067\u6C34\u306B\u6975\u3081\u3066\u6EB6\u3051\u306B\u304F\u3044
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 7ee76318115e1294a9cf835cd37e82ba, type: 3}
   - {fileID: 21300000, guid: fdc51cbd75a7ea845a945db1f1a5a58d, type: 3}
@@ -6205,7 +6218,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CaCl\u2082\u2026\u5869\u5316\u30AB\u30EB\u30B7\u30A6\u30E0\u3001\u878D\u96EA\u5264\u306A\u3069\u306B\u5229\u7528
+    CO\u2082\u2026\u4E8C\u9178\u5316\u70AD\u7D20\u3001\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 0677b525d21a68a4888667d50d7eee2f, type: 3}
   - {fileID: 21300000, guid: eb3dd230ef6c3644eaed4c4a631b8fba, type: 3}
@@ -6575,7 +6590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Na\u2082CO\u2083\u2026\u70AD\u9178\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u6C34\u6EB6\u6DB2\u306F\u5F37\u30A2\u30EB\u30AB\u30EA\u6027
+    CO\u2082\u2026\u4E8C\u9178\u5316\u70AD\u7D20\u3001\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: d9280d522b0c2e440b9c241da6782555, type: 3}
   - {fileID: 21300000, guid: 605d06f8954475441831b0c091b2afa7, type: 3}
@@ -7121,7 +7138,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "H\u2082\u2026\u6C34\u7D20\u3001\u7121\u8272\u7121\u81ED\u3067\u5730\u7403\u4E0A\u6700\u3082\u8EFD\u3044\u6C17\u4F53
+    O\u2082\u2026\u9178\u7D20\u3001\u307B\u3068\u3093\u3069\u306E\u5143\u7D20\u3068\u5316\u5408\u3057\u3066\u9178\u5316\u7269\u3092\u4F5C\u308B"
   StructureImg:
   - {fileID: 21300000, guid: cfdcbf811aee4de4fa78309b24956f44, type: 3}
   - {fileID: 21300000, guid: 65bd84c30680e8343a47433e68d0f983, type: 3}
@@ -7374,7 +7392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CH\u2083COONH\u2084\u2026\u9162\u9178\u30A2\u30F3\u30E2\u30CB\u30A6\u30E0\u3001\u7DE9\u885D\u6DB2\u306B\u5229\u7528\u3055\u308C\u308B"
   StructureImg:
   - {fileID: 21300000, guid: 9be63c34d121a7f4eb2f2fb6f97ff98c, type: 3}
 --- !u!1 &1582517184
@@ -7521,7 +7539,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "CaCl\u2082\u2026\u5869\u5316\u30AB\u30EB\u30B7\u30A6\u30E0\u3001\u878D\u96EA\u5264\u306A\u3069\u306B\u5229\u7528
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 46916f2ef61d27547aaac02a2c242537, type: 3}
   - {fileID: 21300000, guid: c51db30dcdadaae4e90d83d8aac243f6, type: 3}
@@ -7669,7 +7688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53\u3002\u751F\u547D\u306E\u7DAD\u6301\u6D3B\u52D5\u306B\u4E0D\u53EF\u6B20\u306A\u7269\u8CEA\u3002"
   StructureImg:
   - {fileID: 21300000, guid: 3762595d8f53ebb4eaa008ee336a7a98, type: 3}
 --- !u!1 &1636182500
@@ -7968,7 +7987,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "KNO\u2083\u2026\u785D\u9178\u30AB\u30EA\u30A6\u30E0\u3001\u80A5\u6599\u3084\u767A\u7159\u7B52\u306E\u767A\u706B\u5264\u306B\u7528\u3044\u3089\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: fdfba89f8c1a29d408f6358a9edcccd3, type: 3}
   - {fileID: 21300000, guid: d50a81c099650b44290e2072dbf9d8bc, type: 3}
@@ -8116,7 +8136,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "NaCl\u2026\u5869\u5316\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u5869\u3068\u3057\u3066\u5229\u7528
+    CO\u2082\u2026\u4E8C\u9178\u5316\u70AD\u7D20\u3001\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 9b29faf65fb655a45a9e3d4808b05340, type: 3}
   - {fileID: 21300000, guid: 39ac216d746df5248b0118eaab780bcf, type: 3}
@@ -8526,7 +8548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "C\u2026\u70AD\u7D20\u3001\u878D\u70B9\u30FB\u6CB8\u70B9\u304C\u9AD8\u304F\u71C3\u713C\u3059\u308B\u3068\u4E8C\u9178\u5316\u70AD\u7D20\u306B\u306A\u308B
+    MgO\u2026\u9178\u5316\u30DE\u30B0\u30CD\u30B7\u30A6\u30E0\u3001\u767D\u8272\u306E\u7C89\u672B\u3067\u8010\u706B\u6750\u306A\u3069\u306B\u7528\u3044\u3089\u308C\u308B"
   StructureImg:
   - {fileID: 21300000, guid: a64baa21636b6fc419ed02db63fc841b, type: 3}
   - {fileID: 21300000, guid: 7f5f32a6ea221cf44b369a948dcdcd6b, type: 3}
@@ -8674,7 +8697,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "Cu\u2026\u9285\u3001\u5149\u6CA2\u306E\u3042\u308B\u8D64\u8272\u306E\u91D1\u5C5E
+    CO\u2082\u2026\u4E8C\u9178\u5316\u70AD\u7D20\u3001\u52D5\u7269\u306E\u547C\u5438\u3084\u6709\u6A5F\u7269\u306E\u71C3\u713C\u3067\u6392\u51FA\u3055\u308C\u308B"
   StructureImg:
   - {fileID: 21300000, guid: ad72a29ae45a84b46b98233e16a07824, type: 3}
   - {fileID: 21300000, guid: 6a6445e9e9da35e4c90d7e7032a55f84, type: 3}
@@ -8822,7 +8846,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "H\u2082\u2026\u6C34\u7D20\u3001\u7121\u8272\u7121\u81ED\u3067\u5730\u7403\u4E0A\u6700\u3082\u8EFD\u3044\u6C17\u4F53
+    Cl\u2082\u2026\u5869\u7D20\u3001\u5E38\u6E29\u3067\u306F\u9EC4\u7DD1\u8272\u3067\u523A\u6FC0\u81ED\u306E\u3042\u308B\u6C17\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: d91e0c1f395184b4f8c504fe99184323, type: 3}
   - {fileID: 21300000, guid: 8cccb3ac4c068b245b83d82d7a99b5e1, type: 3}
@@ -8970,7 +8995,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "\u6DE1\u3044\u8910\u8272\u3001\u7070\u9ED2\u8272\u306E\u7D50\u6676\u3002\u5E0C\u9178\u306B\u6EB6\u3051\u308B\u3068\u786B\u5316\u6C34\u7D20\u304C\u767A\u751F\u3059\u308B\u3002"
   StructureImg:
   - {fileID: 21300000, guid: 482159e950d843d488ce53d5606246bc, type: 3}
 --- !u!1 &1823529043
@@ -9473,7 +9498,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "\u9EC4\u8272\u306E\u5438\u6E7F\u6027\u306E\u7D50\u6676\u3002\u6D88\u6BD2\u5264\u3084\u6728\u6750\u306E\u4FDD\u5B58\u5264\u306B\u4F7F\u7528\u3059\u308B\u3002"
   StructureImg:
   - {fileID: 21300000, guid: 5f873071dcde80a449b36f6305e1db26, type: 3}
 --- !u!1 &2015694243
@@ -10129,7 +10154,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "NaCl\u2026\u5869\u5316\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u5869\u3068\u3057\u3066\u5229\u7528
+    N\u2082\u2026\u7A92\u7D20\u3001\u7A7A\u6C17\u4E2D\u306B\u6700\u3082\u591A\u304F\u542B\u307E\u308C\u308B
+    H\u2082O\u2026\u6C34\u3001\u5E38\u6E29\u5E38\u5727\u3067\u306F\u7121\u8272\u900F\u660E\u306E\u6DB2\u4F53"
   StructureImg:
   - {fileID: 21300000, guid: 02f7057c2452b234ba8e42069e42542b, type: 3}
   - {fileID: 21300000, guid: 440468575c662be4abb8f082e1a9003b, type: 3}
@@ -10475,7 +10502,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Name: 
-  Feature: 
+  Feature: "BaCO\u2083\u2026\u5869\u5316\u9280\u3001\u767D\u8272\u306E\u5FAE\u5C0F\u306A\u7D50\u6676
+    H\u2082O\u2026\u785D\u9178\u30CA\u30C8\u30EA\u30A6\u30E0\u3001\u6C34\u306B\u6EB6\u3051\u3084\u3059\u3044\u7121\u8272\u306E\u7D50\u6676"
   StructureImg:
   - {fileID: 21300000, guid: ee7c3e09093fea64c8b45029e2af450c, type: 3}
   - {fileID: 21300000, guid: dc57d5ce3ca1df64da261555074b0502, type: 3}
