@@ -61,9 +61,9 @@ public class GameSQLController : MonoBehaviour
 
     public DataTable GetUseElement(int GameType, int Wave)
     {
-        string query = "SELECT id FROM GameContent where wave = " + Wave + " and game_type = " + GameType;
-        var game_id = sqlDB.ExecuteQuery(query)[0];
-        query = "SELECT * FROM GameAnswer where game_id = " + game_id["id"];
+        string query = "SELECT use_element FROM GameContent where wave = " + Wave + " and game_type = " + GameType;
+        // var game_id = sqlDB.ExecuteQuery(query)[0];
+        // query = "SELECT * FROM GameAnswer where game_id = " + game_id["id"];
         return sqlDB.ExecuteQuery(query);
     }
 
@@ -83,6 +83,12 @@ public class GameSQLController : MonoBehaviour
     public DataTable GetElementInfo(string EName)
     {
         string query = "SELECT * FROM Element where name = '" + EName + "'";
+        return sqlDB.ExecuteQuery(query);
+    }
+
+    public DataTable GetElementName(string ElementId)
+    {
+        string query = "SELECT name from Element where id = " + ElementId;
         return sqlDB.ExecuteQuery(query);
     }
 }

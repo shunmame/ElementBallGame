@@ -6,6 +6,7 @@ using System.Linq;
 
 public class InitElementBall : MonoBehaviour
 {
+    int GameType;
     GameObject ElementBallPf;
     GameObject[] ElementBalls, ElementLimitTexts;
     GameSQLController GameSQLCtlerScript;
@@ -36,8 +37,11 @@ public class InitElementBall : MonoBehaviour
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // すべての元素を取得
         AllElement = GameSQLCtlerScript.GetAllElement();
+        // ゲームタイプの取得
+        GameType = PlayerPrefs.GetInt("GameType", 1);
+        GameType = 3;
         // 正解に必要とする元素を取得
-        GameClearElement = GameSQLCtlerScript.GetUseElement(PlayerPrefs.GetInt("GameType", 1), 1);
+        GameClearElement = GameSQLCtlerScript.GetUseElement(GameType, 1);
         // ゲームで使用できるリストを作成
         GetUseElementList();
         // エレメントボールのプレファブ読み込み
@@ -49,7 +53,7 @@ public class InitElementBall : MonoBehaviour
             // Hのテクスチャをはる
             ElementBalls[i].GetComponent<Renderer>().material = ElementTextureMaterial;
             // 残り個数を代入
-            ElementLimitTexts[i].GetComponent<Text>().text = "×5";
+            ElementLimitTexts[i].GetComponent<Text>().text = "×10";
             // エレメントの名前をつける
             ElementBalls[i].GetComponent<ElementInfo>().ElementName = ElementInfo[0]["name"].ToString();
         }
@@ -64,13 +68,14 @@ public class InitElementBall : MonoBehaviour
     private void GetUseElementList()
     {
         List<int> GetIndex = new List<int>();
+        UseElementList = new List<string>();
         int index;
         // List<string> IgnoreElementName = new List<string> {"H2", "Cl2", "O2"};
         List<string> RecognizeElementName = new List<string> {"C", "Cl", "Cu", "Fe", "H", "Mg", "Na", "O", "S"};
-        string[] AnsElement = GameClearElement[0]["pattern1_element"].ToString().Split(',');
-        foreach(var EName in AnsElement)
+        string[] AnsElementId = GameClearElement[0]["use_element"].ToString().Split(',');
+        foreach(var EId in AnsElementId)
         {
-            Debug.Log(EName);
+            var EName = GameSQLCtlerScript.GetElementName(EId)[0]["name"].ToString();
             if(EName == "Cl2")UseElementList.Add("Cl");
             else if(EName == "O2")UseElementList.Add("O");
             else if(EName == "H2")UseElementList.Add("H");
@@ -125,7 +130,7 @@ public class InitElementBall : MonoBehaviour
             newElementBall.GetComponent<Renderer>().material = ElementTextureMaterial;
             newElementBall.transform.localRotation = Quaternion.Euler(0, 0, 0);
             newElementBall.GetComponent<ElementInfo>().ElementName = UseElementList[i].ToString();
-            ElementLimitTexts[i].GetComponent<Text>().text = "×5";
+            ElementLimitTexts[i].GetComponent<Text>().text = "×10";
         }
     }
 }

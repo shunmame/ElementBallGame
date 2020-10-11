@@ -14,7 +14,7 @@ public class GameAdmin : MonoBehaviour
     Text WaveNumberText, QuestionText, ScoreText, HintText;
     GameObject NowMonster, NextMonster;
     Dictionary<int, Dictionary<string, int>> WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
-    int UserAnswerResult, OnButtonCount = 0, NowWave = 0, UserId, GameType;
+    int UserAnswerResult, OnButtonCount = 0, NowWave = 0, UserId, GameType, HintScore;
     ShowResultImage ShowResultImgScript;
     Dictionary<int, int> WaveThrowScore = new Dictionary<int, int>()
     {
@@ -39,6 +39,7 @@ public class GameAdmin : MonoBehaviour
         UserId = int.Parse(PlayerPrefs.GetString("UserId", "0"));
         // GameTypeの取得
         GameType = PlayerPrefs.GetInt("GameType", 1);
+        // GameType = 1;
         // GameSQLscriptを取得
         GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
         // InitElementScriptを取得
@@ -60,6 +61,7 @@ public class GameAdmin : MonoBehaviour
         NextMonster = GameObject.Find("NextMonster");
         // wave1のデータを入れる
         SetfirstWaveInfo();
+        // InitElementScript.GetUseElementList();
         NowWave = 1;
         // 答え用の辞書作成
         CreateWaveAnswerDict(GameType, NowWave);
@@ -152,7 +154,7 @@ public class GameAdmin : MonoBehaviour
                 Destroy(child.gameObject);
             }
             GameSQLCtlerScript.InsertWaveClear(UserId, int.Parse(GameContent[NowWave-1]["id"].ToString()), OnButtonCount);    
-            PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount]);
+            PlayerPrefs.SetInt("score"+NowWave.ToString(), WaveThrowScore[OnButtonCount] - HintScore);
             PlayerPrefs.Save ();
             if(NowWave == 5)Invoke("GoNextScene", 1.5f);
             else
@@ -198,6 +200,7 @@ public class GameAdmin : MonoBehaviour
             nextMonster.transform.parent = NextMonster.transform;
             // ヒントを非表示に
             HintText.enabled = false;
+            HintScore = 0;
         }
         // 答え用の辞書作成
         CreateWaveAnswerDict(GameType, NowWave);
@@ -205,6 +208,7 @@ public class GameAdmin : MonoBehaviour
 
     private void CreateWaveAnswerDict(int GameType, int Wave)
     {
+        Debug.Log(GameType);
         DataTable WaveAnswer = GameSQLCtlerScript.GetWaveGameAnswer(GameType, Wave);
         WaveAnswerDict = new Dictionary<int, Dictionary<string, int>>();
         string[] AnsElement = WaveAnswer[0]["pattern1_element"].ToString().Split(',');
@@ -219,6 +223,7 @@ public class GameAdmin : MonoBehaviour
 
     public void ShowHint()
     {
+        HintScore = 30;
         ScoreText.text = (int.Parse(ScoreText.text.ToString().Substring(0, ScoreText.text.ToString().Length - 2)) - 30).ToString() + " P";
     }
 }
