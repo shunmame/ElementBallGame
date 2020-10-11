@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class ShowElementList : MonoBehaviour
 {
-    GameObject ElementDiv, InfoCanvas, ButtonCanvas, newButtonCanvas;
+    GameObject ElementDiv, InfoCanvas, ButtonCanvas, newButtonCanvas, InfoElement, InfoCanvasObject;
     GameSQLController GameSQLCtlerScript;
     DataTable AllElement;
 
@@ -13,9 +13,12 @@ public class ShowElementList : MonoBehaviour
     void Start()
     {
         InfoCanvas = GameObject.Find("InfoCanvas");
+        InfoElement = GameObject.Find("InfoElement");
+        InfoCanvasObject = GameObject.Find("InfoCanvasObject");
         if(this.name != "Button")
         {
             InfoCanvas.gameObject.SetActive(false);
+            InfoElement.gameObject.SetActive(false);
             ElementDiv = GameObject.Find("ElementDiv");
             // GameSQLscriptを取得
             GameSQLCtlerScript = GameObject.Find("GameScript").GetComponent<GameSQLController>();
@@ -56,19 +59,21 @@ public class ShowElementList : MonoBehaviour
 
     public void ShowInfoCanvas(string ElementName, GameObject OnSphere)
     {
+        GameObject SphereObject, newSphereObject;
         foreach (DataRow ElementRow in AllElement.Rows)
         {
             if(ElementRow["name"].ToString() == ElementName)
             {
                 InfoCanvas.transform.Find("Symbol").GetComponent<Text>().text = ElementRow["name"].ToString();
                 InfoCanvas.transform.Find("AtomicWeight").GetComponent<Text>().text = ElementRow["atomic_weight"].ToString();
-                InfoCanvas.transform.Find("Feature").GetComponent<Text>().text = ElementRow["feature"].ToString();
-                InfoCanvas.transform.Find("ChemicalReactionFormula").GetComponent<Text>().text = ElementRow["example"].ToString();
+                InfoCanvas.transform.Find("Feature").GetComponent<Text>().text = ElementRow["feature"] != null ? ElementRow["feature"].ToString() : "";
+                InfoCanvas.transform.Find("ChemicalReactionFormula").GetComponent<Text>().text = ElementRow["example"] != null ? ElementRow["example"].ToString() : "";
                 InfoCanvas.transform.Find("ElementName").GetComponent<Text>().text = ElementRow["jp_name"].ToString();
-                InfoCanvas.transform.parent = OnSphere.transform.parent;
-                InfoCanvas.transform.localPosition = new Vector3(0, 0, -80);
-                InfoCanvas.transform.rotation = OnSphere.transform.parent.gameObject.transform.parent.gameObject.transform.rotation;
+                InfoCanvasObject.transform.rotation = OnSphere.transform.parent.gameObject.transform.parent.gameObject.transform.rotation;
+                InfoElement.transform.Find("Sphere").transform.Find("ElementBallName").GetComponent<TextMesh>().text = ElementRow["name"].ToString();
+                InfoCanvasObject.transform.position = OnSphere.transform.parent.gameObject.transform.parent.gameObject.transform.position + new Vector3(0, 0, -0.15f);
                 InfoCanvas.gameObject.SetActive(true);
+                InfoElement.gameObject.SetActive(true);
             }
         }
     }
@@ -76,5 +81,6 @@ public class ShowElementList : MonoBehaviour
     public void CloseWindow()
     {
         InfoCanvas.gameObject.SetActive(false);
+        InfoElement.gameObject.SetActive(false);
     }
 }

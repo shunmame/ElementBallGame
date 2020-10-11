@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class GoGameButton : MonoBehaviour
 {
+    public int GameType;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +20,8 @@ public class GoGameButton : MonoBehaviour
 
     public void OnClick()
     {
+        PlayerPrefs.SetInt("GameType", GameType);
+        PlayerPrefs.Save ();
         SceneManager.LoadScene("GameScene");
     }
 }

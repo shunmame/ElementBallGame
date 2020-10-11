@@ -8,6 +8,7 @@ public class ElementCatch : MonoBehaviour
     GameObject ElementBallPf;
     GameObject[] ElementBalls, ElementLimitTexts;
     bool oldisGrabbed = true, isThrow = false;
+    string WhichHand;
     GameAdmin GameAdminScript;
     GameSQLController GameSQLCtlerScript;
     // localPosition座標
@@ -92,6 +93,10 @@ public class ElementCatch : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
+        if(collision.gameObject.name == "GrabVolumeCone")
+        {
+            WhichHand = collision.gameObject.transform.parent.gameObject.transform.parent.gameObject.name;
+        }
         // 当たったオブジェクトがエレメントかを確認
         if(collision.gameObject.GetComponent<ElementInfo>())
         {
@@ -120,7 +125,7 @@ public class ElementCatch : MonoBehaviour
     private void CoalescenceElement(string PairName)
     {
         string NewElementName = GameSQLCtlerScript.GetCoalescenceElementName(this.name.ToString(), PairName);
-        if(NewElementName != "None")
+        if(NewElementName != "None" && WhichHand == "DistanceGrabHandRight")
         {
             // 座標を前エレメントの位置にする
             GameObject ElementBall = (GameObject)Instantiate(ElementBallPf, this.transform.localPosition, Quaternion.identity);
@@ -132,6 +137,10 @@ public class ElementCatch : MonoBehaviour
             // 合わせたので消す
             Destroy(this.gameObject);
             // ※恐らく2個でるので対策する
+        }
+        else if(WhichHand == "DistanceGrabHandLeft")
+        {
+            Destroy(this.gameObject);
         }
     }
 }
